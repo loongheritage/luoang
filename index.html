@@ -1,213 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Loong Heritage — Hongshan C-Dragon, Reimagined</title>
-  <style>
-    /* ========== 基础设定 ========== */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Inter', 'Helvetica Neue', sans-serif; background: #FAF8F5; color: #2C2417; line-height: 1.7; }
-    .container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
-    h1, h2 { font-weight: 500; }
-    h2 { font-size: 1.8rem; color: #C9A96E; margin-bottom: 24px; }
-
-    /* ========== Hero 大图区 (适配1600*899 宽屏图) ========== */
-    .hero { 
-      height: 90vh; /* 调整为70%，因为新图是宽屏，不需要占满90%那么高 */
-      /* center/contain 完美适配 16:9 比例的图片 */
-      background: url('b1-hero.jpg') center/cover no-repeat;
-      background-color: #1a1814; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      position: relative;
-    }
-    .hero::before { 
-      content: ''; 
-      position: absolute; 
-      inset: 0; 
-      /* 增强遮罩，确保文字清晰 */
-      background: linear-gradient(to bottom, rgba(26,24,20,0.3), rgba(26,24,20,0.7));
-    }
-    .hero-text { 
-      position: relative; 
-      z-index: 1; 
-      text-align: center; 
-      color: #FAF8F5; 
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-      padding: 0 20px; /* 防止小屏幕文字贴边 */
-    }
-    .hero-text h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: 4px; margin-bottom: 12px; }
-    .hero-text p { font-size: clamp(1rem, 2vw, 1.2rem); opacity: 0.9; letter-spacing: 1px; }
-
-    /* ========== 内容区块 ========== */
-    .section { padding: 80px 0; border-bottom: 1px solid #eee; }
-    .section p { margin-bottom: 16px; font-size: 1rem; }
-    .highlight { font-weight: bold; color: #C9A96E; }
-    .caption { text-align: center; font-size: 0.85rem; opacity: 0.6; margin-top: 12px; margin-bottom: 32px; }
-
-    /* ========== 红山对比图专用样式 (针对等高竖图优化) ========== */
-    .comparison-grid {
-      display: grid;
-      /* 利用两张图高度相近的特点，自然等高 */
-      grid-template-columns: 1fr 1fr;
-      gap: 24px; /* 稍微加大间距，更像展柜 */
-      margin: 24px 0 12px;
-      align-items: start; /* 顶部对齐 */	
-    }
-    .comparison-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 6px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.1); /* 增强立体感 */
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-    }
-    .comparison-grid img:hover {
-      transform: translateY(-5px); /* 悬停上浮效果 */
-      box-shadow: 0 12px 30px rgba(0,0,0,0.15);
-    }
-
-    /* ========== 工艺展示区 ========== */
-    .craft-step {
-      display: flex;
-      align-items: center;
-      gap: 40px;
-      margin-bottom: 60px;
-    }
-    .craft-step:nth-child(even) { flex-direction: row-reverse; }
-    .craft-step__image { 
-      flex: 1; 
-      max-width: 380px; 
-      border-radius: 8px;
-      overflow: hidden;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-    .craft-step__image img { 
-      width: 100%; 
-      height: auto;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-    .craft-step__image:hover img { transform: scale(1.03); }
-    .craft-step__text { flex: 1; }
-    .craft-step__text h3 { font-size: 1.3rem; color: #2C2417; margin-bottom: 12px; }
-
-    .full-width-img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-      margin-top: 40px;
-    }
-
-    /* ========== 联系我们 ========== */
-    .contact { background: #2C2417; color: #FAF8F5; text-align: center; padding: 80px 24px; }
-    .contact h2 { color: #C9A96E; }
-    .contact p { margin: 8px 0; }
-    .contact a { color: #C9A96E; text-decoration: none; }
-    .contact a:hover { text-decoration: underline; }
-
-    /* ========== 页脚 ========== */
-    .footer { background: #2C2417; color: #8C8578; text-align: center; font-size: 0.85rem; padding: 24px; }
-
-    /* ========== 手机适配 ========== */
-    @media (max-width: 768px) {
-      .craft-step { flex-direction: column !important; gap: 24px; }
-      .craft-step__image { max-width: 100%; }
-      .comparison-grid { 
-        grid-template-columns: 1fr; /* 手机上上下堆叠 */
-        gap: 16px;
-      }
-      .hero { height: 50vh; } /* 手机上进一步降低高度 */
-      .hero-text h1 { letter-spacing: 2px; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Loong Heritage: Museum-quality Balin Stone sculptures by Master Song Weifeng. Limited 1/1 editions inspired by Hongshan Culture.">
+    <title>Loong Heritage | Collectible Balin Stone Sculptures</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=EB+Garamond:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- ===== 顶级导航 (Gallery Style) ===== -->
+    <nav class="site-nav">
+        <div class="nav-inner">
+            <a href="#" class="nav-logo">
+                <img src="./assets/logo-loong-heritage.png" alt="Loong Heritage Logo" class="logo-img">
+                <span class="logo-text">Loong Heritage</span>
+            </a>
+            <div class="nav-links">
+                <a href="#collection">Collection</a>
+                <a href="#artisan">Atelier</a>
+                <a href="#material">Material</a>
+                <a href="#commission">Commission</a>
+                <a href="https://www.amazon.com/shops/loongheritage" target="_blank" class="nav-amazon">Acquire on Amazon</a>
+            </div>
+        </div>
+    </nav>
 
-  <!-- ===== Hero 大图 (红山vsB1对比图) ===== -->
-  <section class="hero">
-    <div class="hero-text">
-      <h1>LOONG HERITAGE</h1>
-      <p>4,700 Years of Silence. One Coil to Speak.</p>
-    </div>
-  </section>
+    <!-- ===== Hero: 沉浸式首屏 ===== -->
+    <header class="hero">
+        <img src="./assets/hero-background.webp" alt="Hongshan Inspired Balin Stone Sculpture" class="hero-img">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>The Eternal Coil</h1>
+            <p class="subtitle">A Contemporary Dialogue with the 4,700-Year-Old Hongshan Legacy.<br>Hand-Carved by Master Song Weifeng.</p>
+            <div class="cta-buttons">
+                <a href="#collection" class="btn btn-primary">View Collection</a>
+                <a href="#commission" class="btn btn-secondary">Request a Private Commission</a>
+            </div>
+        </div>
+    </header>
 
-  <!-- ===== About 核心故事区 ===== -->
-  <section class="section container" id="about">
-    <h2>The C-Dragon, Reimagined</h2>
-    
-    <!-- 红山原型 vs B1改良对比图 (现在这两张图高度一致，并排效果极佳) -->
-    <div class="comparison-grid">
-      <img src="hongshan-reference.jpg" alt="Classic Hongshan C-dragon, 3500 BCE">
-      <img src="b1-side-profile.jpg" alt="Loong Heritage B1 'Beardless' C-Dragon">
-    </div>
-    <p class="caption">Left: Classic Hongshan C-dragon, jade, 3500 BCE. Right: Loong Heritage B1 "Beardless" edition, Balin stone.</p>
+    <main>
+        <!-- ===== 1. 精品陈列 (4款网格) ===== -->
+        <section id="collection" class="collection">
+            <div class="container">
+                <h2>The Collection</h2>
+                <p class="section-subtitle">Each sculpture is a unique 1/1 edition, carved from a single block of natural Balin Stone. Authentication and provenance included.</p>
+                
+                <div class="product-grid">
+                    <!-- Card 1: L-A1 -->
+                    <article class="product-card">
+                        <div class="card-image-wrapper">
+                            <img src="./assets/l-a1-001-main.webp" alt="L-A1-001 Beardless C-Dragon" class="card-img-main">
+                            <img src="./assets/l-a1-001-detail.webp" alt="Detail of L-A1-001" class="card-img-hover">
+                        </div>
+                        <div class="card-info">
+                            <h3>L-A1-001 Beardless C-Dragon</h3>
+                            <p class="specs">9 × 9 × 1.5 cm | Balin Stone</p>
+                            <p class="status available">Available</p>
+                            <a href="https://www.amazon.com/dp/YOUR_LA1_ASIN" class="btn btn-buy">Acquire on Amazon</a>
+                        </div>
+                    </article>
+                    <!-- Card 2: L-A2 -->
+                    <article class="product-card">
+                        <div class="card-image-wrapper">
+                            <img src="./assets/l-a2-001-main.webp" alt="L-A2-001 O-Ring Jiao Si Dragon" class="card-img-main">
+                            <img src="./assets/l-a2-001-detail.webp" alt="Detail of L-A2-001" class="card-img-hover">
+                        </div>
+                        <div class="card-info">
+                            <h3>L-A2-001 O-Ring Jiao Si Dragon</h3>
+                            <p class="specs">11.5 × 9 × 1.5 cm | Balin Stone</p>
+                            <p class="status available">Available</p>
+                            <a href="https://www.amazon.com/dp/YOUR_LA2_ASIN" class="btn btn-buy">Acquire on Amazon</a>
+                        </div>
+                    </article>
+                    <!-- Card 3: L-A3 -->
+                    <article class="product-card">
+                        <div class="card-image-wrapper">
+                            <img src="./assets/l-a3-001-main.webp" alt="L-A3-001 Hongshan C-Dragon" class="card-img-main">
+                            <img src="./assets/l-a3-001-detail.webp" alt="Detail of L-A3-001" class="card-img-hover">
+                        </div>
+                        <div class="card-info">
+                            <h3>L-A3-001 Hongshan C-Dragon</h3>
+                            <p class="specs">9 × 9 × 1.5 cm | Balin Stone</p>
+                            <p class="status available">Available</p>
+                            <a href="https://www.amazon.com/dp/YOUR_LA3_ASIN" class="btn btn-buy">Acquire on Amazon</a>
+                        </div>
+                    </article>
+                    <!-- Card 4: L-A4 -->
+                    <article class="product-card">
+                        <div class="card-image-wrapper">
+                            <img src="./assets/l-a4-001-main.webp" alt="L-A4-001 Pearl Coiled-Dragon" class="card-img-main">
+                            <img src="./assets/l-a4-001-detail.webp" alt="Detail of L-A4-001" class="card-img-hover">
+                        </div>
+                        <div class="card-info">
+                            <h3>L-A4-001 Pearl Coiled-Dragon</h3>
+                            <p class="specs">8.5 × 5 × 4.5 cm| Balin Stone</p>
+                            <p class="status available">Available</p>
+                            <a href="https://www.amazon.com/dp/YOUR_LA4_ASIN" class="btn btn-buy">Acquire on Amazon</a>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
 
-    <p><strong>A 4,700-year-old silence, spoken again.</strong></p>
-    
-    <p>In 1971, a farmer in Inner Mongolia's Hongshan Mountains uncovered a coiled jade creature buried for millennia. That find — the <em>Hongshan C-Dragon</em> — is now hailed as "China's First Dragon": a plump, hooded coil with closed eyes, erect mane, and no limbs, carved from trembling spinach-green nephrite by Neolithic hands 4700–2900 BCE.</p>
+        <!-- ===== 2. 匠人与工坊 (Atelier) ===== -->
+        <section id="artisan" class="artisan">
+            <div class="container">
+                <h2>The Atelier</h2>
+                <div class="artisan-grid">
+                    <div class="artisan-img-large">
+                        <img src="./assets/master-song-action.webp" alt="Master Song Weifeng carving Balin Stone">
+                    </div>
+                    <div class="artisan-text">
+                        <h3>Master Song Weifeng</h3>
+                        <p>"Yanfeng Studio" derives its name from 'Yan'—the ancient Hongshan cultural region—and 'Feng', his given name. Based in Chifeng, the heartland of Hongshan culture, Master Song brings 30 years of unparalleled expertise in Balin stone carving.</p>
+                        <p>Each sculpture is a meditation in stone. Rejecting molds and casts, Master Song spends 12–18 hours of meticulous hand-guided carving on each piece. He listens to the stone, allowing its natural grain and warmth to dictate the final form.</p>
+                        <p class="signature">— Song Weifeng</p>
+                    </div>
+                    <div class="artisan-img-small">
+                        <img src="./assets/master-song-portrait.webp" alt="Portrait of Master Song Weifeng">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <p>For Loong Heritage, the C-dragon is not a souvenir. It is a silhouette worth preserving — but also worth refining.</p>
+        <!-- ===== 3. 材质与工艺 (Material) ===== -->
+        <section id="material" class="material">
+            <div class="container">
+                <h2>The Material: Northern Jade</h2>
+                <div class="material-content">
+                    <img src="./assets/stone-texture.webp" alt="Texture of Balin Stone" class="material-img">
+                    <div class="material-text">
+                        <p>Balin Stone, often referred to as "Northern Jade," is a rare variety of soapstone quarried exclusively in Chifeng, Inner Mongolia. Prized for its softness, delicate texture, and warm, waxy luster, it has been the medium of choice for Chinese artisans since Neolithic times.</p>
+                        <p>Unlike manufactured resin or cold metal, each Balin Stone sculpture possesses a unique thermal conductivity—feeling cool to the touch in summer and retaining warmth in winter. The natural gradients of color, from milky white to cinnabar red, ensure that no two pieces are ever alike.</p>
+                        <h4>Provenance & Authentication</h4>
+                        <p>To preserve the integrity of the natural material, no artificial markings are applied to the sculpture itself. Each piece is authenticated via a Certificate of Authenticity and custom packaging imprinted with the <strong>Loong Heritage</strong> brand and unique serial number.</p>
+                        <img src="./assets/packaging-box.webp" alt="Packaging with Serial Number" class="packaging-img">
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <p><strong>Why we removed the mane.</strong><br>
-    The original C-dragon's raised mane and antler-like crest belong to a world of shamans and jade burials. On a contemporary collector's shelf or worn as jewelry, those protrusions read as "costume" rather than "form." So we asked: what if the dragon went on a diet? We shaved the mane, softened the jaw, smoothed the crest — and kept the iconic coil, the ridged spine, the sleeping-cat tension that made the C-dragon revolutionary in the first place.</p>
+        <!-- ===== 4. 定制服务 (Commission) ===== -->
+        <section id="commission" class="commission">
+             <div class="container">
+                <h2>Private Commissions</h2>
+                <p class="section-subtitle">Collaborate with Master Song to create a bespoke heirloom. From specific motifs to monumental statements, we guide you through a curated process.</p>
+                <div class="process-flow">
+                    <div class="process-step">1. Inquiry</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">2. Design & Quote</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">3. Deposit</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">4. Creation (12-30 Days)</div>
+                    <div class="process-arrow">→</div>
+                    <div class="process-step">5. Delivery</div>
+                </div>
+                <form action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="commission-form">
+                    <input type="text" name="name" placeholder="Name" required>
+                    <input type="email" name="email" placeholder="Email" required>
+                    <select name="budget">
+                        <option value="">Select Budget Range</option>
+                        <option value="<500">< $500 USD</option>
+                        <option value="500-1000">$500 - $1000 USD</option>
+                        <option value="1000-2000">$1000 - $2000 USD</option>
+                        <option value=">2000">> $2000 USD</option>
+                    </select>
+                    <textarea name="description" placeholder="Describe your vision..." required></textarea>
+                    <button type="submit" class="btn btn-submit">Submit Inquiry</button>
+                </form>
+            </div>
+        </section>
+    </main>
 
-    <p><strong>The B1 ("Beardless C-Dragon")</strong> is our answer. Same 4,700-year-old posture. Cleaner lines. No antlers to snag on the present.</p>
-
-    <p style="margin-top: 24px;"><strong>How it's made.</strong><br>
-    The design comes from Loong Heritage (Tianjin) — the "why." The carving stays with Master Song Weifeng, Yanfeng Studio, Chifeng — the "how." Song has 30+ years of expertise with Balin stone, a local Inner Mongolian soapstone often called "Northern jade." One B1 takes 12–18 hours of hand-guided rotary carving and chisel work — no molds, no casts. Each base carries Song's "燕" (Yan) artisan seal + a unique Loong Heritage serial number (e.g., LY-B1-001).</p>
-
-    <p style="margin-top: 16px;">One stone, one dragon. The 4,700-year coil continues.</p>
-  </section>
-
-  <!-- ===== Process 工艺展示区 ===== -->
-  <section class="section container" id="craft">
-    <h2>The Craft</h2>
-    <p>Unlike mass-produced resin casts, our dragons are carved from a single block of natural <span class="highlight">Balin stone</span>. Master Song combines traditional cold chisels with hand-controlled rotary tools — every scale and coil guided strictly by eye and hand.</p>
-
-    <!-- Step 1: 雕刻过程 -->
-    <div class="craft-step">
-      <div class="craft-step__image">
-        <img src="carving.jpg" alt="Master Song carving B1 with rotary tool">
-      </div>
-      <div class="craft-step__text">
-        <h3>Hand-Controlled Precision</h3>
-        <p>While modern rotary tools assist in material removal, the soul of the work remains manual. Master Song relies on tactile feedback and decades of muscle memory to control the depth and angle of each cut, ensuring the vitality of the dragon's form.</p>
-      </div>
-    </div>
-
-    <!-- Step 2: 底刻签名 -->
-    <div class="craft-step">
-      <div class="craft-step__image">
-        <img src="base-sign.jpg" alt="Base sign 燕 + serial number">
-      </div>
-      <div class="craft-step__text">
-        <h3>The Mark of Authenticity</h3>
-        <p>Every finished piece bears the artisan's seal "燕" (Yan) on the base, alongside a unique Loong Heritage serial number. This commitment to traceability guarantees that each sculpture is a unique artwork, never to be replicated.</p>
-      </div>
-    </div>
-
-    <!-- Step 3: 原石对比 -->
-    <div>
-      <h3 style="margin-bottom: 16px;">From Raw Stone to Refined Form</h3>
-      <img src="stone-compare.jpg" alt="Balin raw stone vs B1 finished product" class="full-width-img">
-      <p class="caption">Left: Raw Balin stone with natural skin. Right: Finished B1 C-Dragon after 18 hours of hand carving.</p>
-    </div>
-  </section>
-
-  <!-- ===== Contact 联系我们 ===== -->
-  <section class="contact" id="contact">
-    <h2>Get in Touch</h2>
-    <p>Email: <a href="mailto:loongheritage@outlook.com">loongheritage@outlook.com</a></p>
-    <p>Tianjin, China | Chifeng, Inner Mongolia</p>
-    <p style="margin-top:20px;font-size:0.9rem;opacity:0.7;">For collaborations, wholesale inquiries, and custom commissions.</p>
-  </section>
-
-  <div class="footer">
-    © 2026 Tianjin Luohang Cultural Media Co., Ltd.
-  </div>
-
+    <!-- ===== 页脚 ===== -->
+    <footer>
+        <div class="footer-inner">
+            <img src="./assets/logo-loong-heritage.png" alt="Loong Heritage" class="footer-logo">
+            <p class="footer-tagline">Preserving the Soul of Hongshan</p>
+            <p class="footer-links">
+                <a href="mailto:loongheritage@outlook.com">loongheritage@outlook.com</a> | 
+                <a href="https://www.amazon.com/shops/loongheritage" target="_blank">Amazon Handmade</a>
+            </p>
+            <p class="copyright">© 2026 Loong Heritage. All Rights Reserved. U.S. Registered Trademark Pending.</p>
+        </div>
+    </footer>
 </body>
 </html>
