@@ -125,5 +125,5 @@ footer { background: #1a1a1a; color: #aaa; padding: 4rem 2rem; text-align: cente
     body { font-size: 16px; }
     .process-flow { flex-direction: column; }
     .hero {height: 100vh; height: 100svh;}
-    .hero-img {object-position: center 0%;}
+    .hero-img {object-position: center 10%;}
 }
