@@ -42,7 +42,7 @@ p { margin-bottom: 1rem; }
 .nav-amazon:hover { background: #9c7c3a; color: white !important; }
 
 /* ===== Hero ===== */
-.hero { height: calc(100vh - 70px); position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: white; margin-top: 70px; }
+.hero {  margin-top: 70px; height: calc(100vh - 70px); position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
 .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
 .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); }
 .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 2rem; }
@@ -125,5 +125,5 @@ footer { background: #1a1a1a; color: #aaa; padding: 4rem 2rem; text-align: cente
     body { font-size: 16px; }
     .process-flow { flex-direction: column; }
     .hero {height: 100vh; height: 100svh;}
-    .hero-img {object-position: center 10%;}
+    .hero-img {object-position: center 50%;}
 }
