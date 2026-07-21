@@ -42,7 +42,7 @@ p { margin-bottom: 1rem; }
 .nav-amazon:hover { background: #9c7c3a; color: white !important; }
 
 /* ===== Hero ===== */
-.hero {  margin-top: 70px; height: calc(100vh - 70px); position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
+.hero {  margin-top: -70px; height: 100vh; position: relative; display: flex; align-items: center; justify-content: center; text-align: center; color: white; }
 .hero-img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5); }
 .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.6)); }
 .hero-content { position: relative; z-index: 2; max-width: 800px; padding: 2rem; }
@@ -124,6 +124,6 @@ footer { background: #1a1a1a; color: #aaa; padding: 4rem 2rem; text-align: cente
     h2 { font-size: 2rem; }
     body { font-size: 16px; }
     .process-flow { flex-direction: column; }
-    .hero {height: 100vh; height: 100svh;}
+    .hero {margin-top: 70px; height: calc(100vh-70px); height: calc(100svh-70px);}
     .hero-img {object-position: center 50%;}
 }
